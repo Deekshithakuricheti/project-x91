@@ -1,4 +1,4 @@
-const messageText = "From the moment I met you, my world became brighter. Your smile is my favorite sight. Will you be my Valentine? ❤️";
+const messageText = "Nuvvu ‘No’ ani anadam option laga pettanu... ala ani no ante sasthavv 😌. So.. andhukanii.... Nannu pelli cheskuntavaa..? ❤️";
 
 let index = 0;
 const speed = 40;
@@ -15,31 +15,29 @@ function typeWriter() {
 
 typeWriter();
 
-// No button movement (Laptop + Mobile compatible)
+const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
-function moveButton() {
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 50);
+let noClickCount = 0;
+let noScale = 1;
 
-  noBtn.style.position = "absolute";
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
+const funnyTexts = [
+  "Are you sure? 🤨",
+  "Think again 😏",
+  "Last chance 👀",
+  "Really? 😂",
+  "Don’t do this 💔",
+  "You can't escape 😈",
+  "Okay now you're testing me 😭",
+  "Fine. Try again 😌"
+];
 
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("click", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
-
-// Yes button with controlled confetti
-document.getElementById("yesBtn").addEventListener("click", function () {
+// YES button
+yesBtn.addEventListener("click", function () {
 
   confetti({
-    particleCount: 120,
-    spread: 80,
-    startVelocity: 40,
-    gravity: 0.8,
-    ticks: 200,
+    particleCount: 180,
+    spread: 110,
     origin: { y: 0.6 }
   });
 
@@ -54,10 +52,34 @@ document.getElementById("yesBtn").addEventListener("click", function () {
         color:white;
         text-align:center;
         font-size:2rem;
+        padding:20px;
       ">
-        You just made me the happiest person alive 💕
+        I knew you'd say YES 😌💖 <br><br>
+        Now you're officially stuck with me 😎
       </div>
     `;
-  }, 1000);
+  }, 700);
+});
 
+// NO button (Funny Mode)
+noBtn.addEventListener("click", function () {
+
+  noClickCount++;
+
+  // Change text every click
+  noBtn.innerText = funnyTexts[noClickCount % funnyTexts.length];
+
+  // Shrink button gradually
+  noScale -= 0.08;
+  if (noScale > 0.4) {
+    noBtn.style.transform = 'scale(${noScale})';
+  }
+
+  // Move randomly
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+  noBtn.style.position = "absolute";
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
 });

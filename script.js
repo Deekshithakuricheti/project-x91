@@ -15,29 +15,33 @@ function typeWriter() {
 
 typeWriter();
 
-// No button moving
+// No button movement (Laptop + Mobile compatible)
 const noBtn = document.getElementById("noBtn");
 
-noBtn.addEventListener("mouseover", function () {
+function moveButton() {
   const x = Math.random() * (window.innerWidth - 100);
   const y = Math.random() * (window.innerHeight - 50);
 
   noBtn.style.position = "absolute";
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
-});
+}
 
-// Yes button with confetti
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+// Yes button with controlled confetti
 document.getElementById("yesBtn").addEventListener("click", function () {
 
   confetti({
-  particleCount: 120,
-  spread: 80,
-  startVelocity: 40,
-  gravity: 0.8,
-  ticks: 200,
-  origin: { y: 0.6 }
-}); 
+    particleCount: 120,
+    spread: 80,
+    startVelocity: 40,
+    gravity: 0.8,
+    ticks: 200,
+    origin: { y: 0.6 }
+  });
 
   setTimeout(function () {
     document.body.innerHTML = `

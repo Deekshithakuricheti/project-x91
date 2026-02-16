@@ -1,36 +1,32 @@
-const messageText = "Nuvvu ‘No’ ani anadam option laga pettanu... ala ani no ante sasthavv 😌. So.. andhukanii.... Nannu pelli cheskuntavaa..? ❤️";
+const messageText = "ikkada 'NO' anedhi option matrame😒,so inko option ledhu yes click chey,,cheyyakapothe sasthav... Nannu pelli chesko maa! ❤️";
 
-let index = 0;
-const speed = 40;
 const messageElement = document.getElementById("message");
-
-// Typing effect
-function typeWriter() {
-  if (index < messageText.length) {
-    messageElement.innerHTML += messageText.charAt(index);
-    index++;
-    setTimeout(typeWriter, speed);
-  }
-}
-
-typeWriter();
-
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
-let noClickCount = 0;
+let index = 0;
 let noScale = 1;
+let noClickCount = 0;
 
 const funnyTexts = [
-  "Are you sure? 🤨",
-  "Think again 😏",
-  "Last chance 👀",
-  "Really? 😂",
-  "Don't do this 💔",
-  "You can't escape 😈",
-  "Testing my patience huh? 😭",
-  "Okay okay try again 😌"
+  "Are you sure? 😏",
+  "Think again 😜",
+  "You can't escape 😂",
+  "Nice try 😎",
+  "Click Yes already 😌",
+  "Accept your fate 😁"
 ];
+
+// Typing effect
+function typeEffect() {
+  if (index < messageText.length) {
+    messageElement.innerHTML += messageText.charAt(index);
+    index++;
+    setTimeout(typeEffect, 50);
+  }
+}
+typeEffect();
+
 
 // YES button
 yesBtn.addEventListener("click", function () {
@@ -45,28 +41,56 @@ yesBtn.addEventListener("click", function () {
     document.body.innerHTML = `
       <div class="final-screen">
         <h1>I knew you'd say YES 😌💖</h1>
-        <p>Now you're officially stuck with me 😎</p>
+        <p>Now you're officially stuck with me Vinay 😎</p>
       </div>
     `;
   }, 700);
+
 });
 
-// NO button (Funny mode)
+
+// NO button (stable version)
 noBtn.addEventListener("click", function () {
 
   noClickCount++;
 
+  // Change text
   noBtn.innerText = funnyTexts[noClickCount % funnyTexts.length];
 
-  noScale -= 0.08;
+  // Shrink + rotate
+  noScale -= 0.05;
   if (noScale > 0.4) {
-    noBtn.style.transform ='scale(${noScale})';
+    noBtn.style.transform = `scale(${noScale}) rotate(${noClickCount * 5}deg)`;
   }
 
-  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  // Safe movement boundaries (prevents disappearing)
+  const safeWidth = 120;
+  const safeHeight = 60;
 
-  noBtn.style.position = "absolute";
+  const x = Math.random() * (window.innerWidth - safeWidth);
+  const y = Math.random() * (window.innerHeight - safeHeight);
+
+  noBtn.style.position = "fixed";
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+
 });
+
+
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤️";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 10 + "px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}
+
+setInterval(createHeart, 700);

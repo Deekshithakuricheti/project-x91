@@ -26,10 +26,10 @@ const funnyTexts = [
   "Think again 😏",
   "Last chance 👀",
   "Really? 😂",
-  "Don’t do this 💔",
+  "Don't do this 💔",
   "You can't escape 😈",
-  "Okay now you're testing me 😭",
-  "Fine. Try again 😌"
+  "Testing my patience huh? 😭",
+  "Okay okay try again 😌"
 ];
 
 // YES button
@@ -43,39 +43,26 @@ yesBtn.addEventListener("click", function () {
 
   setTimeout(function () {
     document.body.innerHTML = `
-      <div style="
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:linear-gradient(135deg, #ff758c, #ff7eb3);
-        color:white;
-        text-align:center;
-        font-size:2rem;
-        padding:20px;
-      ">
-        I knew you'd say YES 😌💖 <br><br>
-        Now you're officially stuck with me 😎
+      <div class="final-screen">
+        <h1>I knew you'd say YES 😌💖</h1>
+        <p>Now you're officially stuck with me 😎</p>
       </div>
     `;
   }, 700);
 });
 
-// NO button (Funny Mode)
+// NO button (Funny mode)
 noBtn.addEventListener("click", function () {
 
   noClickCount++;
 
-  // Change text every click
   noBtn.innerText = funnyTexts[noClickCount % funnyTexts.length];
 
-  // Shrink button gradually
   noScale -= 0.08;
   if (noScale > 0.4) {
-    noBtn.style.transform = 'scale(${noScale})';
+    noBtn.style.transform ='scale(${noScale})';
   }
 
-  // Move randomly
   const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
 
